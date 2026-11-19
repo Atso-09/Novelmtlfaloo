@@ -1,0 +1,17 @@
+{
+  "name": "NovelMTL Chinese-English Reader",
+  "short_name": "NovelMTL",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#101116",
+  "theme_color": "#171923",
+  "description": "A personal Chinese-to-English webnovel reader with glossary and saved chapters.",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

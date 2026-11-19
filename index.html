@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#171923">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="A personal Chinese-to-English webnovel reader with glossary and saved chapters.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <title>NovelMTL</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">文</span><div><strong>NovelMTL</strong><small>Chinese → English reader</small></div></div>
+    <button id="installBtn" class="button ghost small" hidden>Install</button>
+  </header>
+
+  <main>
+    <section class="panel setup-panel">
+      <div class="section-heading"><div><p class="eyebrow">YOUR READING LIBRARY</p><h1>Open a novel</h1></div><span class="pill">Free starter</span></div>
+      <label for="novelUrl">Novel or chapter URL</label>
+      <div class="url-row"><input id="novelUrl" type="url" placeholder="https://example.com/novel/chapter-1" inputmode="url"><button id="loadUrlBtn" class="button primary">Open</button></div>
+      <p class="hint">Paste a chapter URL once. Faloo URLs can use the configured Faloo Worker. Other websites are tried directly when browser access is allowed. Some sites block extraction; use the paste box below when that happens.</p>
+      <div class="divider"></div>
+      <label for="chapterTitle">Chapter title</label>
+      <input id="chapterTitle" type="text" placeholder="Chapter 1">
+      <label for="sourceText">Chinese chapter text</label>
+      <textarea id="sourceText" rows="8" placeholder="Paste the Chinese chapter text here if automatic extraction is blocked..."></textarea>
+      <div class="action-row">
+        <button id="translateBtn" class="button primary">Translate chapter</button>
+        <button id="saveSourceBtn" class="button secondary">Save source</button>
+      </div>
+      <div id="status" class="status" role="status">Ready. Add a chapter URL or paste Chinese text.</div>
+    </section>
+
+    <section class="reader panel">
+      <div class="reader-head">
+        <div><p class="eyebrow">NOW READING</p><h2 id="readerTitle">No chapter loaded</h2><p id="readerMeta" class="hint">Your translated chapter will appear here.</p></div>
+        <div class="reader-head-actions">
+          <button id="readerExitBtn" class="button ghost small" type="button">← Library</button>
+          <button id="bookmarkBtn" class="icon-button" title="Save chapter" aria-label="Save chapter">☆</button>
+        </div>
+      </div>
+      <div class="reader-tools">
+        <div class="language-tabs"><button id="showEnglishBtn" class="tab active">English</button><button id="showChineseBtn" class="tab">中文</button></div>
+        <div class="reader-controls">
+          <button id="fontDownBtn" class="button ghost small" aria-label="Decrease font">A−</button>
+          <button id="fontUpBtn" class="button ghost small" aria-label="Increase font">A+</button>
+          <button id="readerThemeBtn" class="button ghost small" aria-label="Change reading theme">☼ Theme</button>
+          <button id="copyBtn" class="button ghost small">Copy</button>
+        </div>
+      </div>
+      <article id="readerContent" class="reader-content"><p class="empty">Your reading page is waiting.</p></article>
+      <div class="chapter-nav"><button id="prevBtn" class="button secondary" disabled>← Previous chapter</button><span id="chapterProgress" class="chapter-progress">Enjoy your reading</span><button id="nextBtn" class="button primary" disabled>Next chapter →</button></div>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading"><div><p class="eyebrow">PERSONAL TERMINOLOGY</p><h2>Glossary / name lock</h2></div><span id="glossaryCount" class="pill">0 terms</span></div>
+      <p class="hint">Add names, moves, places, clans and titles. NovelMTL protects these terms from being mistranslated as much as the translation service allows.</p>
+      <div class="glossary-form">
+        <input id="glossarySource" placeholder="Chinese term (e.g. 小智)">
+        <input id="glossaryTarget" placeholder="Locked English (e.g. Ash Ketchum)">
+        <button id="addGlossaryBtn" class="button secondary">Add</button>
+      </div>
+      <div id="glossaryList" class="glossary-list"><p class="empty">No custom terms yet.</p></div>
+      <div class="action-row">
+        <button id="exportGlossaryBtn" class="button ghost small">Export glossary</button>
+        <label class="button ghost small file-label">Import glossary<input id="importGlossaryInput" type="file" accept=".json,application/json" hidden></label>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading"><div><p class="eyebrow">SAVED ON THIS PHONE</p><h2>Library</h2></div><span id="savedCount" class="pill">0 chapters</span></div>
+      <div id="libraryList" class="library-list"><p class="empty">Saved chapters will appear here.</p></div>
+      <div class="action-row"><button id="exportChapterBtn" class="button ghost small">Export current chapter (.txt)</button></div>
+    </section>
+
+    <section class="panel settings-panel">
+      <p class="eyebrow">TRANSLATION SETTINGS</p><h2>Translation provider</h2>
+      <p class="hint">This starter uses MyMemory's public translation endpoint. It is not unlimited and may have daily limits or fail. For long novels, you may later connect a provider with a suitable free quota or run your own translation backend.</p>
+      <label for="workerUrl">Faloo fetcher URL (Cloudflare Worker)</label>
+      <input id="workerUrl" type="url" placeholder="https://your-worker.your-subdomain.workers.dev">
+      <p class="hint">Set this after deploying the included faloo-worker.js file. This lets NovelMTL request publicly accessible Faloo chapters through your own Worker.</p>
+      <label for="emailInput">Optional contact email (provider parameter)</label>
+      <input id="emailInput" type="email" placeholder="you@example.com (optional)">
+      <p class="hint warning">Do not enter passwords or private API keys here. This static app cannot safely hide secret API keys.</p>
+      <div class="action-row"><button id="clearDataBtn" class="button danger ghost">Clear all local data</button></div>
+    </section>
+    <footer>NovelMTL Starter · Your chapters and glossary stay in this browser's local storage.</footer>
+  </main>
+  <script src="./app.js"></script>
+</body>
+</html>
